@@ -32,7 +32,17 @@ module.exports = (options) => {
         .get(konsoleFn(options))
         .get(modulesFn(prefix, options))
         .get(staticFn)
-    
+
+    var listening = false;
+    router.use((req, res, next) => {
+        if (!listening) {
+            options.server = req.socket.server;
+            module.exports.listen(options);
+            listening = true;
+        }
+        next();
+    })
+
     return router;
 };
 

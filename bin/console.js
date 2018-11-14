@@ -39,13 +39,8 @@ function start() {
     
     const online = false;
     app .use('/', webconsole({
-        server,
         online,
     })).use(express.static(DIR));
-    
-    webconsole.listen({
-        server
-    });
     
     server.listen(port, ip);
     
